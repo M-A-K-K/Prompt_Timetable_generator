@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized Study Timetable Generator</title>
+    <script>
+        function addStudentFields() {
+            const studentCount = parseInt(document.getElementById('student_count').value, 10);
+            const container = document.getElementById('student_container');
+            container.innerHTML = ''; // Clear existing fields
+
+            for (let i = 0; i < studentCount; i++) {
+                container.innerHTML += `
+                    <h2>Student ${i + 1}</h2>
+                    <label for="name_${i}">Name:</label>
+                    <input type="text" id="name_${i}" name="name_${i}" required><br><br>
+                    <label for="field_of_study_${i}">Field of Study:</label>
+                    <input type="text" id="field_of_study_${i}" name="field_of_study_${i}" required><br><br>
+                    <label for="year_of_study_${i}">Year of Study:</label>
+                    <input type="text" id="year_of_study_${i}" name="year_of_study_${i}" required><br><br>
+                    <label for="subjects_${i}">List of Subjects (comma-separated):</label>
+                    <input type="text" id="subjects_${i}" name="subjects_${i}" required><br><br>
+                    <label for="learning_styles_${i}">Preferred Learning Styles (comma-separated):</label>
+                    <input type="text" id="learning_styles_${i}" name="learning_styles_${i}" required><br><br>
+                    <label for="personal_objectives_${i}">Personal Objectives:</label>
+                    <input type="text" id="personal_objectives_${i}" name="personal_objectives_${i}" required><br><br>
+                    <label for="challenges_${i}">Challenges:</label>
+                    <input type="text" id="challenges_${i}" name="challenges_${i}" required><br><br>
+                    <label for="extracurricular_activities_${i}">Extracurricular Activities (comma-separated):</label>
+                    <input type="text" id="extracurricular_activities_${i}" name="extracurricular_activities_${i}" required><br><br>
+                `;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Personalized Study Timetable Generator</h1>
+    <form method="POST">
+        <label for="student_count">Number of Students:</label>
+        <input type="number" id="student_count" name="student_count" min="1" required oninput="addStudentFields()"><br><br>
+
+        <div id="student_container">
+            <!-- Dynamic student fields will be added here -->
+        </div>
+
+        <button type="submit">Generate Timetables</button>
+    </form>
+
+    {% if timetables %}
+        <h2>Personalized Study Timetables:</h2>
+        {% for timetable in timetables %}
+            <h3>Student {{ loop.index }}</h3>
+            <pre>{{ timetable }}</pre>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>
