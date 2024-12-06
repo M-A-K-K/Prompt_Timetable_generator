@@ -81,9 +81,7 @@ def index():
             }
             students.append(student_data)
 
-        
         timetables = [generate_study_timetable(student) for student in students]
-
         
         return render_template("index.html", timetables=timetables)
 
